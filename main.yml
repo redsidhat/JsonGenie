@@ -1,5 +1,6 @@
 - name: Retrieve and process JSON data
   hosts: all
+  gather_facts: no
   roles:
     - json_retrieval
 

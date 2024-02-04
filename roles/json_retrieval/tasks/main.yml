@@ -9,5 +9,17 @@
 - name: Extract 'form' entry from JSON
   set_fact:
     form_data: "{{ json_response.json.form }}"
+# - name: Debug form_data elements
+#   debug:
+#     msg: "{{ form_data }}"
+- name: Create a list of all labels prefixed with 'TRAYPORT'
+  set_fact:
+    trayport_labels: "{{ trayport_labels | default([]) + ['TRAYPORT' + item] }}"
+  loop: "{{ form_data.formFieldGroups | json_query('[].fields[].label') }}"
+  when: item != ''
+
+- name: Debug the list of processed labels
+  debug:
+    var: trayport_labels
 
 
