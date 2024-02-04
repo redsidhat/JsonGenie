@@ -1,36 +1,15 @@
-# - name: Retrieve and process JSON data
-#   hosts: all
-#   # gather_facts: no
-#   roles:
-#     - json_retrieval
-#     - { role: alpha_num_sum, tags: ['nodeA', 'nodeB'] }
-
 - hosts: all
   gather_facts: no
   tasks:
-    - name: Run JSON json_retrieval
-      import_role:
+    - name: Retrieve and process JSON data
+      include_role:
         name: json_retrieval
-      tags:
-        - nodeA
-        - nodeB
-
 - hosts: nodeA
   gather_facts: no
   roles:
-    - role: alpha_num_sum
-  # tags:
-  #   - nodeA
+    - process_nodeA
 
 - hosts: nodeB
   gather_facts: no
   roles:
-    - role: alpha_num_sum
-  # tags:
-  #   - nodeB
-
-
-
-# - hosts: nodeB
-#   roles:
-#     - { role: alpha_num_sum, tags: ['nodeB'] }
+    - process_nodeB
