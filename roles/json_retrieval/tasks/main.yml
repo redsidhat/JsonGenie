@@ -23,5 +23,6 @@
 - name: Debug the list of processed labels
   debug:
     var: trayport_labels
+  tags: [ never, debug ]
 
 

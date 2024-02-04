@@ -1,0 +1,24 @@
+---
+- name: Create a dictionary of labels with odd length and their lengths
+  set_fact:
+    labels_odd_length: "{{ labels_odd_length | default({}) | combine({item: item | length}) }}"
+  loop: "{{ trayport_labels }}"
+  when: item | length is odd
+
+- name: Verify all dictionary entries have odd values #why though
+  assert:
+    that: labels_odd_length.values() | map('int') | select('odd') | list | length == labels_odd_length.values() | list | length
+    fail_msg: "Not all dictionary entries have odd values."
+
+- name: Calculate the sum of all lengths
+  set_fact:
+    total_length_odd: "{{ labels_odd_length.values() | map('int') | sum }}"
+
+- name: total_length_odd value
+  debug:
+    msg: "total_length_even value is {{ total_length_odd }}"
+  tags: [ never, debug ]
+- name: Print the sum message for nodeA
+  debug:
+    msg: "The sum of all the nodeA lengths is: {{ 'odd' if (total_length_odd | int) % 2 != 0 else 'even' }}"
+  tags: [ never, print_sum_nodeA ]

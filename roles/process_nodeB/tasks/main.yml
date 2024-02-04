@@ -1,0 +1,25 @@
+---
+- name: Collect labels with even length
+  set_fact:
+    labels_even: "{{ labels_even | default([]) + [item] }}"
+  loop: "{{ trayport_labels }}"
+  when: item | length is even
+
+- name: Create an ordered list of unique alphanumeric characters from even labels
+  set_fact:
+    unique_chars_even: "{{ labels_even | join('') | regex_replace('[^a-zA-Z0-9]', '') | list | map('lower') | unique | sort }}"
+
+- name: Calculate the sum of all lengths for even labels
+  set_fact:
+    total_length_even: "{{ labels_even | map('length') | sum }}"
+
+- name: total_length_even value
+  debug:
+    msg: "total_length_even value is {{ total_length_even }}"
+  tags: [ never, debug ]
+
+- name: Print the sum message for nodeB
+  debug:
+    msg: "The sum of all the nodeA lengths is: {{ 'odd' if (total_length_even | int) % 2 != 0 else 'even' }}"
+  tags: [ never, print_sum_nodeB ]
+
