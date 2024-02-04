@@ -3,8 +3,8 @@ ansible_user=root
 ansible_ssh_private_key_file=~/.ssh/id_rsa
 
 [nodeA]
-nodeA ansible_host=localhost ansible_port=2222
+nodeA1 ansible_host=localhost ansible_port=2222
 
 [nodeB]
-nodeB ansible_host=localhost ansible_port=2223
+nodeB1 ansible_host=localhost ansible_port=2223
 
