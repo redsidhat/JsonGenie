@@ -1,0 +1,13 @@
+---
+- name: Retrieve JSON data
+  uri:
+    url: "https://forms.hsforms.com/embed/v3/form/7257359/3e06f85f-0325-4dd3-b663-82284f38ff47/json"
+    method: GET
+    return_content: yes
+  register: json_response
+
+- name: Extract 'form' entry from JSON
+  set_fact:
+    form_data: "{{ json_response.json.form }}"
+
+

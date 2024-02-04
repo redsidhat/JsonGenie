@@ -1,0 +1,5 @@
+- name: Retrieve and process JSON data
+  hosts: all
+  roles:
+    - json_retrieval
+
