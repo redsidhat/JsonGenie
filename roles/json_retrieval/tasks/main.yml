@@ -1,7 +1,7 @@
 ---
 - name: Retrieve JSON data
   uri:
-    url: "https://forms.hsforms.com/embed/v3/form/7257359/3e06f85f-0325-4dd3-b663-82284f38ff47/json"
+    url: "{{ json_data_url }}"
     method: GET
     return_content: yes
   register: json_response
